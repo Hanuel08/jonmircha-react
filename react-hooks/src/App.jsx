@@ -6,6 +6,7 @@ import './App.css'
 
 import { ContadorHooks } from "./components/ContadorHooks.jsx"
 import { ScrollHooks } from "./components/ScrollHooks.jsx"
+import { RelojHooks } from "./components/RelojHooks.jsx"
 
 function App() {
   //const [count, setCount] = useState(0)
@@ -16,6 +17,8 @@ function App() {
         <ContadorHooks />
         <br />
         <ScrollHooks />
+        <br />
+        <RelojHooks />
       </div>
     </>
   )
