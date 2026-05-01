@@ -9,6 +9,7 @@ import { ScrollHooks } from "./components/ScrollHooks.jsx"
 import { RelojHooks } from "./components/RelojHooks.jsx"
 import { AjaxHooks } from "./components/AjaxHooks.jsx"
 import { CustomHooks } from "./components/CustomHooks.jsx"
+import { References } from "./components/References.jsx"
 
 function App() {
   //const [count, setCount] = useState(0)
@@ -29,6 +30,9 @@ function App() {
         <br />
         <hr />
         <CustomHooks />
+        <br />
+        <hr />
+        <References />
       </div>
     </>
   )
