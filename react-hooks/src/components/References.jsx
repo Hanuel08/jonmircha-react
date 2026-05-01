@@ -9,7 +9,7 @@ export function References() {
 
   //console.log(refMenu, refMenuBtn)
 
-  const handleToggleMenu = (e)=> {
+  const handleToggleMenu = (e) => {
     //const $menu = document.getElementById("menu")
 
     if (refMenuBtn.current.textContent === "Menu") {
@@ -34,7 +34,8 @@ export function References() {
         <a href="#">Seccion 3</a>
         <br />
         <a href="#">Seccion 4</a>
-        <br /><a href="#">Seccion 5</a>
+        <br />
+        <a href="#">Seccion 5</a>
         <br />
       </nav>
     </>
