@@ -5,7 +5,7 @@ export function ScrollHooks() {
   
   //Cada vez que hay un cambio en el render se ejecuta este useEffect (no es buena practica)
   useEffect(()=> {
-    console.log("Moviendo el scroll")
+    //console.log("Moviendo el scroll")
 
     const detectarScroll = () => setScrollY(window.pageYOffset)
 
@@ -20,7 +20,7 @@ export function ScrollHooks() {
 
   //Esta es la forma correcta de hacerlo. Asi solo se ejecuta cuando cambia el scrollY
   useEffect(()=> {
-    console.log("Moviendo el scroll 2")
+    //console.log("Moviendo el scroll 2")
 
     const detectarScroll = () => setScrollY(window.pageYOffset)
 
@@ -30,14 +30,14 @@ export function ScrollHooks() {
 
   //Con un array vacio [] solo se ejecuta una vez (fase de montaje)
   useEffect(() => {
-    console.log("Fase de montaje")
+    //console.log("Fase de montaje")
   }, [])
 
 
   useEffect(()=> {
 
     return ()=> {
-      console.log("Fase de desmontaje")
+      //console.log("Fase de desmontaje")
     }
   })
 

@@ -21,7 +21,7 @@ export function RelojHooks() {
     }
 
     return () => {
-      console.log("Fase de desmontaje del relojHooks")
+      //console.log("Fase de desmontaje del relojHooks")
       clearInterval(timer)
     }
 
