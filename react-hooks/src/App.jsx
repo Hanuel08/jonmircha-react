@@ -5,6 +5,7 @@ import heroImg from './assets/hero.png'
 import './App.css'
 
 import { ContadorHooks } from "./components/ContadorHooks.jsx"
+import { ScrollHooks } from "./components/ScrollHooks.jsx"
 
 function App() {
   //const [count, setCount] = useState(0)
@@ -13,6 +14,8 @@ function App() {
     <>
       <div>
         <ContadorHooks />
+        <br />
+        <ScrollHooks />
       </div>
     </>
   )
