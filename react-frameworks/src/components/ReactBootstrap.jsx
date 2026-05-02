@@ -14,7 +14,7 @@ function BootstrapNavbar() {
 export function ReactBootstrap() {
   return (
     <>
-      <h2>Bootstrap</h2>
+      {/* <h2>Bootstrap</h2>
       <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
@@ -37,7 +37,7 @@ export function ReactBootstrap() {
           </Nav>
         </Navbar.Collapse>
       </Container>
-    </Navbar>
+    </Navbar> */}
     </>
   )
 }

@@ -3,6 +3,7 @@ import './App.css'
 import { Bootstrap } from './components/Bootstrap.jsx'
 import { Bulma } from './components/Bulma.jsx'
 import { ReactBootstrap } from './components/ReactBootstrap.jsx'
+import { MaterialUI } from './components/MaterialUI.jsx'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Bootstrap />
         <Bulma />
         <ReactBootstrap />
+        <MaterialUI />
       </div>
     </>
   )
