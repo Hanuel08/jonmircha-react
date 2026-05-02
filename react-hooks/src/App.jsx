@@ -12,6 +12,7 @@ import { CustomHooks } from "./components/CustomHooks.jsx"
 import { References } from "./components/References.jsx"
 import { Forms } from "./components/Forms.jsx"
 import { Styles } from "./components/Styles.jsx"
+import { StyledComponents } from "./components/StyledComponents.jsx"
 
 function App() {
   //const [count, setCount] = useState(0)
@@ -41,6 +42,9 @@ function App() {
         <br />
         <hr />
         <Styles />
+        <br />
+        <hr />
+        <StyledComponents />
       </div>
     </>
   )
