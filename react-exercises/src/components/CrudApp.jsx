@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { CrudForm } from "./CrudForm"
 import { CrudTable } from "./CrudTable"
+import { Header } from "./Header"
 
 export function CrudApp () {
   const [data, setData] = useState([
@@ -202,12 +203,45 @@ export function CrudApp () {
   
 
   return (
-    <>
-      <h1 className="text-2xl font-bold text-center p-4">CRUD App</h1>
-      <div className="flex gap-4 p-4 px-10 w-full justify-between">
-        <CrudForm data={data} setData={setData} emptyForm={emptyForm} form={form} setForm={setForm} editData={editData} setEditData={setEditData} />
-        <CrudTable data={data} setData={setData} setForm={setForm} editData={editData} setEditData={setEditData} />
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-12">
+      <Header />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        
+        {/* Top Section: Image and Form */}
+        <div className="flex flex-col lg:flex-row gap-12 w-full justify-center items-center mb-16 bg-white p-8 sm:p-12 rounded-[2rem] shadow-xl shadow-slate-200/50">
+          
+        
+
+          {/* Form Container */}
+          <div className="w-full lg:w-1/2 flex justify-center items-center">
+            <CrudForm data={data} setData={setData} emptyForm={emptyForm} form={form} setForm={setForm} editData={editData} setEditData={setEditData} />
+          </div>
+
+          {/* Image Container */}
+          <div className="w-130 lg:w-1/2 flex justify-center items-center">
+             <img 
+               src="/img/form-img-1.jpg" 
+               alt="Modern Abstract Dashboard" 
+               className="w-128 h-158 object-cover rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500 ease-out" 
+             />
+          </div>
+
+        </div>
+
+        {/* Bottom Section: Wide Table */}
+        <div className="w-full">
+          <div className="bg-white p-6 sm:p-10 rounded-[2rem] shadow-xl shadow-slate-200/50 w-full overflow-x-auto">
+             <div className="flex items-center justify-between mb-8 px-2">
+               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight">Contacts Directory</h2>
+               <span className="bg-violet-100 text-violet-800 text-sm font-semibold px-4 py-1.5 rounded-full">
+                 {data.length} Total
+               </span>
+             </div>
+             <CrudTable data={data} setData={setData} setForm={setForm} editData={editData} setEditData={setEditData} />
+          </div>
+        </div>
+
       </div>
-    </>
+    </div>
   )
 }

@@ -1,51 +1,69 @@
-import {useState} from "react"
+import { useState } from "react"
+
+import { validateFormField } from "../utils/validateFormField.js"
 
 export function CrudForm ({ data, setData, emptyForm, form, setForm, editData, setEditData }) {
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState({
+    name: null,
+    phone: null,
+    email: null,
+    age: null,
+    department: null,
+    terms: false
+  })
 
   const handleChange = (e) => {
+    let name = e.target.name
+    let value = e.target.value
+
     setForm({
       ...form, 
-      [e.target.name]: e.target.value
+      [name]: value
     })
+
+    let error = validateFormField({ [name]: value })
+    if (Object.hasOwn(error, name)) {
+      setErrors({
+        ...errors,
+        [name]: error[name]
+      })
+    } else {
+      setErrors({
+        ...errors,
+        [name]: null
+      })
+    }
   }
 
   const handleChecked = (e) =>{
+    let name = e.target.name
+    let value = e.target.checked
+
     setForm({
       ...form,
-      [e.target.name]: e.target.checked
+      [name]: value
     })
-  }
 
-  const validate = (form) => {
-    const { name, phone, email, age, terms } = form
-  
-    if (!name || name.length < 3 || name === false) {
-      setErrors([...errors, {name: "Name must be at least 3 characters long"}])
+    let error = validateFormField({ [name]: value })
+    if (Object.hasOwn(error, name)) {
+      setErrors({
+        ...errors,
+        [name]: error[name]
+      })
+    } else {
+      setErrors({
+        ...errors,
+        [name]: null
+      })
     }
-    if (!phone || phone.length < 7 || phone === false) {
-      setErrors([...errors, {phone: "Phone must be at least 7 digits long"}])
-    }
-    if (!email || email.length < 3 || email === false) {
-      setErrors([...errors, {email: "Email must be at least 3 characters long"}])
-    }
-    if (!age || age.length < 3 || age === false) {
-      setErrors([...errors, {age: "Age must be at least 3 digits long"}])
-    }
-    if (!terms || terms === false) {
-      setErrors([...errors, {terms: "Terms must be accepted"}])
-    }
-    return errors
   }
 
   const handleSubmit = (e) => {
     e.preventDefault() 
 
-    // const errors = validate(form)
-    // if (errors.length > 0) {
-    //   return
-    // }
-    //setForm({ ...form, id: crypto.randomUUID() })
+    setErrors({ ...validateFormField(form) })
+
+    if (Object.keys(errors).find(error => errors[error] !== null)) return
 
     if (editData.editing) {
       setEditData({ editing: false, id: null })
@@ -59,9 +77,8 @@ export function CrudForm ({ data, setData, emptyForm, form, setForm, editData, s
     }
 
     setData([...data, { ...form, id: crypto.randomUUID() }])
-
-    //console.log(form)
-    //console.log(data)
+    setForm(emptyForm)
+    setErrors(emptyForm)
   }
 
   return (
@@ -74,6 +91,7 @@ export function CrudForm ({ data, setData, emptyForm, form, setForm, editData, s
             <input 
               className="border-2 border-gray-300 text-gray-600 rounded-lg p-2 px-4 text-sm w-lg outline-none focus:border-blue-300 hover:border-blue-300" 
               type="text" name="name" id="name" placeholder="Type a name" value={form.name || ""} onChange={(e)=> handleChange(e)} />
+              {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
           </div>
 
           <div className="flex flex-col gap-1">
@@ -81,20 +99,23 @@ export function CrudForm ({ data, setData, emptyForm, form, setForm, editData, s
             <input 
               className="border-2 border-gray-300 text-gray-600 rounded-lg p-2 px-4 text-sm w-lg outline-none focus:border-blue-300 hover:border-blue-300" 
               type="text" name="phone" id="phone" placeholder="Type a phone number" value={form.phone || ""} onChange={(e)=> handleChange(e)} />
+            {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           </div>
 
           <div className="flex flex-col gap-1">
             <label className="mr-4 text-gray-600 text-base font-bold" htmlFor="email">Email</label>
             <input 
               className="border-2 border-gray-300 text-gray-600 rounded-lg p-2 px-4 text-sm w-lg outline-none focus:border-blue-300 hover:border-blue-300" 
-              type="text" name="email" id="email" placeholder="Type a valid email" value={form.email || ""} onChange={(e)=> handleChange(e)} />
+              type="email" name="email" id="email" placeholder="Type a valid email" value={form.email || ""} onChange={(e)=> handleChange(e)} />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
 
           <div className="flex flex-col gap-1">
             <label className="mr-4 text-gray-600 text-base font-bold" htmlFor="age">Age</label>
             <input 
               className="border-2 border-gray-300 text-gray-600 rounded-lg p-2 px-4 text-sm w-lg outline-none focus:border-blue-300 hover:border-blue-300" 
-              type="text" name="age" id="age" placeholder="Type an age" value={form.age || ""} onChange={(e)=> handleChange(e)} />
+              type="number" name="age" id="age" placeholder="Type an age" value={form.age || ""} onChange={(e)=> handleChange(e)} />
+            {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
           </div>
 
           <div className="flex flex-col gap-1">
@@ -115,11 +136,15 @@ export function CrudForm ({ data, setData, emptyForm, form, setForm, editData, s
               <option value="Logística">Logística</option>
               <option value="Producción">Producción</option>
             </select>
+            {errors.department && <p className="text-red-500 text-sm">{errors.department}</p>}
           </div>
 
-          <div className="flex gap-4 text-sm text-gray-500">
-            <label htmlFor="terms">Acepto los terminos y condiciones</label>
-            <input className="transform scale-140" type="checkbox" id="terms" name="terms" defaultValue={form.terms || false} onChange={(e) => handleChecked(e)} />
+          <div className="flex flex-col gap-1">
+            <div className="flex gap-4 text-sm text-gray-500">
+              <label htmlFor="terms">Acepto los terminos y condiciones</label>
+              <input className="transform scale-140" type="checkbox" id="terms" checked={form.terms || false} name="terms" onChange={(e) => handleChecked(e)} />
+            </div>
+            {errors.terms && <p className="text-red-500 text-sm text-center">{errors.terms}</p>}
           </div>
 
           {editData.editing ? (
@@ -131,7 +156,7 @@ export function CrudForm ({ data, setData, emptyForm, form, setForm, editData, s
               <input 
               type="submit" 
               value="ADD CONTACT" 
-              className="py-2 px-4 w-full rounded-md font-bold text-sm text-white bg-blue-400 hover:bg-blue-500 cursor-pointer transition-all duration-300" />
+              className="py-2 px-4 w-full rounded-md font-bold text-sm text-white bg-gradient-to-r from-violet-800 to-fuchsia-600 hover:bg-gradient-to-r hover:from-violet-900 hover:to-fuchsia-700 hover:scale-102 cursor-pointer transition-all duration-300" />
           )}
 
         </form>
